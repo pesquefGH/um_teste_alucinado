@@ -1,19 +1,21 @@
 % LNCC SURGE Model 26  Chikungunya- Validation 3
 % Tasks of this script (for a given BR state):
-% 1) Estimate a surge model (logistic model) from the average surge behavior across the
-% years, by means of a nonlinear estimator. We can consider the surge model
-% as a typical (expected) surge in a given year.
+% 1) Estimate an average incidence curve (surge) from EW 41 year Y to from EW 40 year Y+1. 
+% We call this a typical surge. 
 
 % 2) From the typical surge we estimate the parameters of an incidence model, 
 % from which we generate a modeled surge. 
 
-% 3) Obtain a set of gains across the years that, when applied to the surge model, 
-% match its scale to that of a given observed surge 
-% (time-synchronized with the surge model). A forecast realization n is
-% then calculated  as: forecast (n) = g(n) * modeled_surge. We generate 
-% 10000 values of g(n) drawn from a log normal distribution. 
+% 3) Obtain a set of gains across the years that, when applied to the modeled surge, 
+% match its scale to that of a given observed surge from EW 41 year Y to from EW 40 year Y+1.
 
-% 4) Provide a 'Validation 3' Forecast based on the model of the average surge
+% 4) A forecast realization n is then calculated  as: forecast(n) = g(n) * modeled_surge. We generate 
+% 10000 values of g(n) drawn from a log normal distribution, and obtain a set of 10000 forecast realizations.
+
+% 5) Obtain the median forecast and related prediction intervals. 
+
+% 6) Provide a validation 3 target forecast results
+
 
 SUNDAYS = readtable('sunday_dates.csv');  % reads CSV with Sunday dates
 S_dates=SUNDAYS{:,1};   % Sunday dates format YYYY-MM-DD
