@@ -1,21 +1,19 @@
 % LNCC SURGE Model 26  Chikungunya- Validation 2
 % Tasks of this script (for a given BR state):
-% 1) Estimate an average incidence curve (surge) from EW 41 year Y to from EW 40 year Y+1. 
-% We call this a typical surge. 
+% 1) Estimate a surge model (logistic model) from the average surge behavior across the
+% years, by means of a nonlinear estimator. We can consider the surge model
+% as a typical (expected) surge in a given year.
 
 % 2) From the typical surge we estimate the parameters of an incidence model, 
 % from which we generate a modeled surge. 
 
-% 3) Obtain a set of gains across the years that, when applied to the modeled surge, 
-% match its scale to that of a given observed surge from EW 41 year Y to from EW 40 year Y+1.
+% 3) Obtain a set of gains across the years that, when applied to the surge model, 
+% match its scale to that of a given observed surge 
+% (time-synchronized with the surge model). A forecast realization n is
+% then calculated  as: forecast (n) = g(n) * modeled_surge. We generate 
+% 10000 values of g(n) drawn from a log normal distribution. 
 
-% 4) A forecast realization n is then calculated  as: forecast(n) = g(n) * modeled_surge. We generate 
-% 10000 values of g(n) drawn from a log normal distribution, and obtain a set of 10000 forecast realizations.
-
-% 5) Obtain the median forecast and related prediction intervals. 
-
-% 6) Provide a validation 2 target forecast results
-
+% 4) Provide a 'Validation 2' Forecast based on the model of the average surge
 
 SUNDAYS = readtable('sunday_dates.csv');  % reads CSV with Sunday dates
 S_dates=SUNDAYS{:,1};   % Sunday dates format YYYY-MM-DD
@@ -149,7 +147,7 @@ upper_95 = PP(9,:)'; % 97.5% percentile
 indf_ini=457+52; % time index of the EW 41 2023
 indf_end=508+52; % time index of the EW 40 2024
 
-date=S_dates(indf_ini:indf_end);  % epidemic weeks to be forecast 
+date=S_dates(719:770);  % Sunday days for validation 2 
 
 cases=dcases_orig(indf_ini:indf_end);  % known cases 
 
